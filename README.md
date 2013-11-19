@@ -10,3 +10,9 @@ wget -q -O - "$@" https://raw.github.com/dparlevliet/suzie/master/install.sh | s
 ```
 You can run this command multiple times without consequences. This is useful for
 updating your version to the newest version.
+
+Run
+===
+```
+suzie
+```

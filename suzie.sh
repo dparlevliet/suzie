@@ -29,4 +29,21 @@ if [[ $MYSQL_DEST == "" ]]; then
   MYSQL_DEST=~/Dropbox/db.sql
 fi
 
-mysql --user=$MYSQL_USER --host=$MYSQL_HOST --password=$MYSQL_PASS --execute="SET GLOBAL net_write_timeout=360; SET GLOBAL net_read_timeout=360; SET GLOBAL max_allowed_packet=1024*1024*1024;" > /dev/null; mysqldump --opt --quick --hex-blob --max_allowed_packet=1G --user=$MYSQL_USER --password=$MYSQL_PASS --host=$MYSQL_HOST --add-drop-table=true --complete-insert=true  --lock-tables=false --databases $MYSQL_DB > $MYSQL_DEST
+mysql \
+  --user=$MYSQL_USER \
+  --host=$MYSQL_HOST \
+  --password=$MYSQL_PASS \
+  --execute="SET GLOBAL net_write_timeout=360; SET GLOBAL net_read_timeout=360; SET GLOBAL max_allowed_packet=1024*1024*1024;" > /dev/null
+
+mysqldump \
+  --opt \
+  --quick \
+  --hex-blob \
+  --max_allowed_packet=1G \
+  --user=$MYSQL_USER \
+  --password=$MYSQL_PASS \
+  --host=$MYSQL_HOST \
+  --add-drop-table=true \
+  --complete-insert=true  \
+  --lock-tables=false \
+  --databases $MYSQL_DB > $MYSQL_DEST

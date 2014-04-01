@@ -14,6 +14,13 @@ if [[ $MYSQL_USER == "" ]]; then
   MYSQL_USER="root"
 fi
 
+echo "Is this user a superuser? (yes/no) (default: yes):"
+read answer
+MYSQL_SUPER=$answer
+if [[ $MYSQL_SUPER == "" ]]; then
+  MYSQL_SUPER="yes"
+fi
+
 echo "Please enter the password: "
 read answer
 MYSQL_PASS=$answer
@@ -29,11 +36,13 @@ if [[ $MYSQL_DEST == "" ]]; then
   MYSQL_DEST=~/Dropbox/db.sql
 fi
 
-mysql \
-  --user=$MYSQL_USER \
-  --host=$MYSQL_HOST \
-  --password=$MYSQL_PASS \
+if [[ $MYSQL_SUPER == "y" ] || [ $MYSQL_SUPER == 'yes' ]]; then
+  mysql \
+    --user=$MYSQL_USER \
+    --host=$MYSQL_HOST \
+    --password=$MYSQL_PASS \
   --execute="SET GLOBAL net_write_timeout=360; SET GLOBAL net_read_timeout=360; SET GLOBAL max_allowed_packet=1024*1024*1024;" > /dev/null
+fi
 
 mysqldump \
   --opt \

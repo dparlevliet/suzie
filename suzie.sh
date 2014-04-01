@@ -36,7 +36,7 @@ if [[ $MYSQL_DEST == "" ]]; then
   MYSQL_DEST=~/Dropbox/db.sql
 fi
 
-if [[ $MYSQL_SUPER == "y" ] || [ $MYSQL_SUPER == 'yes' ]]; then
+if [[ $MYSQL_SUPER == "y" || $MYSQL_SUPER == 'yes' ]]; then
   mysql \
     --user=$MYSQL_USER \
     --host=$MYSQL_HOST \
